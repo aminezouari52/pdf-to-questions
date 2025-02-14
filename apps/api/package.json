@@ -1,0 +1,11 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": ". .venv/bin/activate;python3 -m pip install flask;python3 server.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
