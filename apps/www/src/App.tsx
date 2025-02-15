@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File>();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleFileChange = (event: React.changeEvent<HTMLInputElement>) => {
-    setFile(event.target.files[0]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+    }
   };
 
   const handleUpload = async () => {
     if (!file) {
-      setError("❌ Veuillez sélectionner un fichier PDF !");
+      setError("❌ Please select a PDF file!");
       return;
     }
 
@@ -33,8 +35,8 @@ function App() {
 
       setLoading(false);
     } catch (error) {
-      setError("⚠️ Erreur lors de l'envoi du fichier. Veuillez réessayer !");
-      console.error("Erreur :", error);
+      setError("⚠️ Error uploading the file. Please try again!");
+      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
@@ -44,7 +46,7 @@ function App() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-200 to-blue-400 p-6">
       <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg">
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">
-          📄 Génération de Questions
+          📄 Question Generation
         </h1>
 
         <div className="flex flex-col items-center space-y-4">
@@ -64,7 +66,7 @@ function App() {
                 : "bg-blue-600 hover:bg-blue-700 shadow-lg"
             }`}
           >
-            {loading ? "⏳ Traitement..." : "📤 Uploader & Générer"}
+            {loading ? "⏳ Processing..." : "📤 Upload & Generate"}
           </button>
         </div>
 
@@ -75,7 +77,7 @@ function App() {
         {questions.length > 0 && (
           <div className="mt-6">
             <h2 className="text-lg font-semibold text-gray-800">
-              ✅ Questions Générées :
+              ✅ Generated Questions:
             </h2>
             <div className="mt-4 space-y-3">
               {questions.map((q, index) => (

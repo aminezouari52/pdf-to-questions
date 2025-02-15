@@ -3,7 +3,8 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"]
 }
